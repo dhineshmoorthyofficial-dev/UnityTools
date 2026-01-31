@@ -7,7 +7,7 @@ namespace UnityTools.ObjectGrouper.UI
     {
         [SerializeField] private ObjectGrouperUI ui = new ObjectGrouperUI();
 
-        [MenuItem("Tools/GameDevTools/Object Grouper", false, 100)]
+        [MenuItem("Tools/GameDevTools/Object Grouper", false, 210)]
         public static void ShowWindow()
         {
             var window = GetWindow<ObjectGrouperWindow>("Object Grouper");

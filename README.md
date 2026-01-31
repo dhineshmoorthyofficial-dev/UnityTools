@@ -77,6 +77,12 @@ A comprehensive collection of Unity Editor tools designed to enhance productivit
     - **Shortcut**: `Alt+Shift+S` for instant sorting.
     - **Access**: `Tools > GameDevTools > Sort Children Alphabetically` or `Right-click > Sort Children Alphabetically`.
 
+- **2.8 Tab Screenshot Maker**:
+    - **Pixel-Perfect Capture**: Capture exact window contents using internal Unity utilities via reflection.
+    - **Smart UI Hiding**: Automatically hides the tool window during capture to ensure zero overlap.
+    - **Shortcut**: `Ctrl+Alt+S` (Windows) / `Cmd+Alt+S` (macOS) to capture the focused tab instantly.
+    - **Access**: `Tools > GameDevTools > Tab Screenshot Maker`.
+
 ### � Asset Utilities
 - **3.1 Advanced Inspector**:
     - **Favorites System**: Pin frequently used components or properties for quick access.

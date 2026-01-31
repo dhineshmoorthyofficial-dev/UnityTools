@@ -7,7 +7,7 @@ namespace FeatureAggregator
     {
         [SerializeField] private FeatureAggregatorUI ui = new FeatureAggregatorUI();
 
-        [MenuItem("Tools/GameDevTools/Feature Aggregator", false, 100)]
+        [MenuItem("Tools/GameDevTools/Feature Aggregator", false, 140)]
         public static void ShowWindow()
         {
             GetWindow<FeatureAggregatorWindow>("Feature Aggregator");

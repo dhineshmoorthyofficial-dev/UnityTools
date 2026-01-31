@@ -31,7 +31,7 @@ namespace UnityProductivityTools.GoogleSheet.Editor
         private Color _lineColor = new Color(0.12f, 0.12f, 0.12f, 1f);
         private Color _alternateRowColor = new Color(1f, 1f, 1f, 0.03f);
 
-        [MenuItem("Tools/GameDevTools/GSheet Data Viewer", false, 100)]
+        [MenuItem("Tools/GameDevTools/GSheet Data Viewer", false, 150)]
         public static void ShowWindow()
         {
             var window = GetWindow<GoogleSheetEditorWindow>("GSheet Data Viewer");

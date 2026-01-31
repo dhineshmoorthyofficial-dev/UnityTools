@@ -126,6 +126,18 @@ namespace UnityProductivityTools
                     "Capture, View, and Restore GameObject states (Transforms & Component values). Includes undo support.",
                     "Tools/GameDevTools/Snapshot Manager"
                 );
+                
+                DrawToolItem(
+                    "2.7 Sort Children Alphabetically",
+                    "Sort hierarchy objects alphabetically using natural numeric sorting (e.g. '3' before '10'). Works on multiple selections.",
+                    "Tools/GameDevTools/Sort Children Alphabetically"
+                );
+
+                DrawToolItem(
+                    "2.8 Tab Screenshot Maker",
+                    "Capture pixel-perfect screenshots of any Editor window. Features smart UI hiding and save location persistence.",
+                    "Tools/GameDevTools/Tab Screenshot Maker"
+                );
 
                 EditorGUI.indentLevel--;
                 EditorGUILayout.Space();
@@ -193,7 +205,7 @@ namespace UnityProductivityTools
             
             // Footer
             GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField("Version 1.0.0", EditorStyles.centeredGreyMiniLabel);
+            EditorGUILayout.LabelField("Version 1.0.2", EditorStyles.centeredGreyMiniLabel);
             //if (GUILayout.Button("Close", GUILayout.Height(30)))
             //{
             //    Close();

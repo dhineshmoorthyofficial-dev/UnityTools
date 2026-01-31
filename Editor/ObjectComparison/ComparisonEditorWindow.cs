@@ -7,7 +7,7 @@ namespace UnityTools.ObjectComparison
     {
         [SerializeField] private ComparisonUI ui = new ComparisonUI();
 
-        [MenuItem("Tools/GameDevTools/Object Comparison", false, 100)]
+        [MenuItem("Tools/GameDevTools/Object Comparison", false, 200)]
         public static void ShowWindow()
         {
             GetWindow<ComparisonEditorWindow>("Object Comparison");

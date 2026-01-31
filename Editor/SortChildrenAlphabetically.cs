@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public static class SortChildrenAlphabetically
 {
-    [MenuItem("Tools/GameDevTools/Sort Children Alphabetically &%S", false, 150)]
+    [MenuItem("Tools/GameDevTools/Sort Children Alphabetically &%S", false, 240)]
     [MenuItem("GameObject/Sort Children Alphabetically", false, 0)]
     private static void SortChildren(MenuCommand command)
     {

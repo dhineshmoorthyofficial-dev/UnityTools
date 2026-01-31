@@ -7,7 +7,7 @@ namespace UnityProductivityTools.SnapshotTool
     {
         [SerializeField] private SnapshotUI ui = new SnapshotUI();
 
-        [MenuItem("Tools/GameDevTools/Snapshot Manager", false, 100)]
+        [MenuItem("Tools/GameDevTools/Snapshot Manager", false, 230)]
         public static void ShowWindow()
         {
             GetWindow<GameObjectSnapshotTool>("Snapshot Tool");

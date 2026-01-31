@@ -7,7 +7,7 @@ namespace UnityProductivityTools.Terminal
     {
         [SerializeField] private TerminalUI ui = new TerminalUI();
 
-        [MenuItem("Tools/GameDevTools/Integrated Terminal %`", false, 100)]
+        [MenuItem("Tools/GameDevTools/Integrated Terminal %`", false, 170)]
         public static void ShowWindow()
         {
             var window = GetWindow<TerminalWindow>("Terminal");

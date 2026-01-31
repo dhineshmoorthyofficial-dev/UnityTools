@@ -7,7 +7,7 @@ namespace GameDevTools.Editor
     {
         [SerializeField] private NoteDashboardUI ui = new NoteDashboardUI();
 
-        [MenuItem("Tools/GameDevTools/Note Dashboard", false, 100)]
+        [MenuItem("Tools/GameDevTools/Note Dashboard", false, 190)]
         public static void ShowWindow()
         {
             var window = GetWindow<NoteDashboardWindow>("Note Dashboard");

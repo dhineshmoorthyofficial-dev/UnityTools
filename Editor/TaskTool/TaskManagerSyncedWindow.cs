@@ -12,7 +12,7 @@ namespace UnityProductivityTools.TaskTool.Editor
         private TaskManagerSyncedUI _ui;
         public static Action OnDataChanged;
 
-        [MenuItem("Tools/GameDevTools/Task Manager (Synced)", false, 100)]
+        [MenuItem("Tools/GameDevTools/Task Manager (Synced)", false, 270)]
         public static void ShowWindow()
         {
             TaskManagerSyncedWindow window = GetWindow<TaskManagerSyncedWindow>("Task Manager (Synced)");

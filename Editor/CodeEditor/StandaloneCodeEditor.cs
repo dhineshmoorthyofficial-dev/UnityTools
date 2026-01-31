@@ -35,7 +35,7 @@ namespace UnityProductivityTools.CodeEditor
         private enum ScriptSource { AssetsOnly, All }
         private ScriptSource scriptSource = ScriptSource.AssetsOnly;
 
-        [MenuItem("Tools/GameDevTools/Code Editor", false, 101)]
+        [MenuItem("Tools/GameDevTools/Code Editor", false, 120)]
         public static void ShowWindow()
         {
             var window = GetWindow<StandaloneCodeEditor>("Code Editor");

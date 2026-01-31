@@ -7,7 +7,7 @@ namespace UnityProductivityTools.TaskTool.Editor
     {
         [SerializeField] private TaskManagerUI ui = new TaskManagerUI();
 
-        [MenuItem("Tools/GameDevTools/Task Manager", false, 100)]
+        [MenuItem("Tools/GameDevTools/Task Manager", false, 260)]
         public static void ShowWindow()
         {
             TaskManagerWindow window = GetWindow<TaskManagerWindow>("Task Manager");

@@ -7,7 +7,7 @@ namespace UnityProductivityTools.MacroActions
     {
         [SerializeField] private MacroActionsUI ui = new MacroActionsUI();
 
-        [MenuItem("Tools/GameDevTools/Macro Actions", false, 100)]
+        [MenuItem("Tools/GameDevTools/Macro Actions", false, 180)]
         public static void ShowWindow()
         {
             GetWindow<MacroActionsWindow>("Macro Actions");

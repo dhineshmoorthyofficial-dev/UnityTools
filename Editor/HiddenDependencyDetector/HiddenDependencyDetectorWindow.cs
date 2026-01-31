@@ -7,7 +7,7 @@ namespace HiddenDeps
     {
         [SerializeField] private HiddenDependencyDetectorUI ui = new HiddenDependencyDetectorUI();
 
-        [MenuItem("Tools/GameDevTools/Hidden Dependency Detector", false, 100)]
+        [MenuItem("Tools/GameDevTools/Hidden Dependency Detector", false, 160)]
         public static void Open()
         {
             GetWindow<HiddenDependencyDetectorWindow>("Hidden Dependencies");

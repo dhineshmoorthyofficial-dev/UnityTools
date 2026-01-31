@@ -7,7 +7,7 @@ namespace UnityTools.Editor.AssetSyncTool
     {
         [SerializeField] private AssetSyncUI ui = new AssetSyncUI();
 
-        [MenuItem("Tools/GameDevTools/Asset Sync/Manager Window", false, 100)]
+        [MenuItem("Tools/GameDevTools/Asset Sync/Manager Window", false, 110)]
         public static void ShowWindow()
         {
             GetWindow<AssetSyncWindow>("Asset Sync");

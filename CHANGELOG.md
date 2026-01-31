@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2026-01-31
+
+### Added
+- **Tab Screenshot Maker**:
+    - High-quality Editor tab captures via reflection.
+    - Global shortcut `Ctrl+Alt+S` (Windows) / `Cmd+Alt+S` (macOS).
+    - Smart UI hiding to prevent overlapping.
+    - Save location persistence and quick preview.
+
+### Changed
+- **Global Menu Optimization**:
+    - Reorganized the entire `Tools/GameDevTools` menu for better clarity.
+    - Enforced alphabetical sorting for all middle tools using a 10-unit sequence.
+    - Removed unwanted horizontal separators caused by order gaps.
+    - Renamed **Material Map Auto-Assigner** to **Material Auto-Assigner** for consistency.
+
 ## [1.0.1] - 2026-01-31
 
 ### Added
@@ -43,3 +59,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Refactored toolbar layout for better stability and pinning support.
 - Improved Selection History navigation.
+
+[1.0.2]: https://github.com/yourusername/unity-productivity-tools/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/yourusername/unity-productivity-tools/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/yourusername/unity-productivity-tools/releases/tag/v1.0.0

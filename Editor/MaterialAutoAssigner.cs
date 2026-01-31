@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameDevTools.MaterialAutoAssigner
+namespace UnityProductivityTools
 {
     public enum SearchScope
     {
@@ -27,7 +28,7 @@ namespace GameDevTools.MaterialAutoAssigner
         DetailNormal
     }
 
-    public class MaterialMapScanner
+    public static class MaterialMapScanner
     {
         public class DetectedMap
         {
@@ -52,13 +53,12 @@ namespace GameDevTools.MaterialAutoAssigner
             { MapType.DetailNormal, new[] { "_DetailNormal" } }
         };
 
-        // Standard Unity Shader Property Names
         private static readonly Dictionary<MapType, string[]> PropertyNames = new Dictionary<MapType, string[]>
         {
             { MapType.Albedo, new[] { "_BaseMap", "_BaseColorMap", "_MainTex", "BaseMap" } },
             { MapType.Normal, new[] { "_BumpMap", "_NormalMap" } },
-            { MapType.Metallic, new[] { "_MetallicGlossMap", "_Metallic" } }, // Often used for metallic
-            { MapType.Roughness, new[] { "_SpecGlossMap", "_SmoothnessMap", "_RoughnessMap" } }, // Often combined with metallic or separate
+            { MapType.Metallic, new[] { "_MetallicGlossMap", "_Metallic" } },
+            { MapType.Roughness, new[] { "_SpecGlossMap", "_SmoothnessMap", "_RoughnessMap" } },
             { MapType.Occlusion, new[] { "_OcclusionMap" } },
             { MapType.Height, new[] { "_ParallaxMap", "_HeightMap" } },
             { MapType.Emission, new[] { "_EmissionMap" } },
@@ -76,29 +76,21 @@ namespace GameDevTools.MaterialAutoAssigner
             string materialFolder = Path.GetDirectoryName(materialPath);
             string baseName = ExtractBaseName(material.name);
 
-            // Get all candidate file paths based on scope
             string[] candidatePaths = GetCandidatePaths(materialFolder, scope);
 
-            foreach (MapType type in System.Enum.GetValues(typeof(MapType)))
+            foreach (MapType type in Enum.GetValues(typeof(MapType)))
             {
                 DetectedMap map = FindMap(type, baseName, candidatePaths);
-                if (map != null)
-                {
-                    results.Add(map);
-                }
+                if (map != null) results.Add(map);
             }
             
-            // Post-Validation: Check consistency between maps
             ValidateConsistency(results);
-
             return results;
         }
 
         private static void ValidateConsistency(List<DetectedMap> maps)
         {
             if (maps.Count <= 1) return;
-
-            // Find most common resolution
             var resolutions = maps.Select(m => m.Texture.width + "x" + m.Texture.height).ToList();
             var mostCommon = resolutions.GroupBy(r => r).OrderByDescending(g => g.Count()).First().Key;
 
@@ -117,15 +109,12 @@ namespace GameDevTools.MaterialAutoAssigner
         {
             if (string.IsNullOrEmpty(rootFolder)) return new string[0];
 
-            string[] guids;
             if (scope == SearchScope.SameFolderOnly)
             {
-                 // FindAssets doesn't limit to depth 1, so we must filter later or use Directory.GetFiles
-                 // Using Directory.GetFiles is faster for local folder
                  try {
                      return Directory.GetFiles(rootFolder, "*.*", SearchOption.TopDirectoryOnly)
                          .Where(f => IsTextureFile(f))
-                         .Select(f => f.Replace("\\", "/")) // Normalize paths
+                         .Select(f => f.Replace("\\", "/"))
                          .ToArray();
                  } catch { return new string[0]; }
             }
@@ -138,9 +127,9 @@ namespace GameDevTools.MaterialAutoAssigner
                          .ToArray();
                  } catch { return new string[0]; }
             }
-            else // EntireAssetsFolder
+            else
             {
-                guids = AssetDatabase.FindAssets("t:Texture2D");
+                string[] guids = AssetDatabase.FindAssets("t:Texture2D");
                 return guids.Select(g => AssetDatabase.GUIDToAssetPath(g)).ToArray();
             }
         }
@@ -153,18 +142,10 @@ namespace GameDevTools.MaterialAutoAssigner
 
         private static string ExtractBaseName(string materialName)
         {
-            // Simple heuristic: if material name has common suffixes, strip them?
-            // Actually, usually the material name IS the base name (e.g. "Wood_Floor"), 
-            // and textures are "Wood_Floor_Albedo". 
-            // Often Materials are named "M_Wood_Floor" or "MT_Wood_Floor".
-            
             string name = materialName;
             if (name.StartsWith("M_")) name = name.Substring(2);
             if (name.StartsWith("MT_")) name = name.Substring(3);
-            
-            // Remove common material suffixes if present
             if (name.EndsWith("_Mat")) name = name.Substring(0, name.Length - 4);
-
             return name;
         }
 
@@ -174,42 +155,27 @@ namespace GameDevTools.MaterialAutoAssigner
 
             foreach (var suffix in Suffixes[type])
             {
-                // Strict match: BaseName + Suffix
-                // We should also handle fuzzy matching later, but for now strict.
-                // also check Case Insensitivity
-                
                 foreach (var path in candidatePaths)
                 {
                     string fileName = Path.GetFileNameWithoutExtension(path);
-                    
-                    // Debugging
-                    // Debug.Log($"Checking {fileName} against {baseName + suffix}");
-
-                    // Check 1: Exact Match (Case Insensitive)
-                    if (fileName.Equals(baseName + suffix, System.StringComparison.OrdinalIgnoreCase))
+                    if (fileName.Equals(baseName + suffix, StringComparison.OrdinalIgnoreCase))
                     {
                         return CreateDetectedMap(type, path);
                     }
-
-                    // Check 2: Maybe base name is slightly different? 
-                    // e.g. Material="Wood", Texture="T_Wood_Albedo"
-                    // Not handling "T_" prefix for textures yet in strict match but good to note.
                 }
             }
             
-            // Try matching with "T_" prefix which is common for textures
             foreach (var suffix in Suffixes[type])
             {
                  foreach (var path in candidatePaths)
                 {
                     string fileName = Path.GetFileNameWithoutExtension(path);
-                     if (fileName.Equals("T_" + baseName + suffix, System.StringComparison.OrdinalIgnoreCase))
+                     if (fileName.Equals("T_" + baseName + suffix, StringComparison.OrdinalIgnoreCase))
                     {
                         return CreateDetectedMap(type, path);
                     }
                 }
             }
-
             return null;
         }
 
@@ -223,14 +189,13 @@ namespace GameDevTools.MaterialAutoAssigner
                 Type = type,
                 Texture = tex,
                 TexturePath = path,
-                IsAssigned = true, // Default to true if found
+                IsAssigned = true,
                 Warning = ValidateMap(type, tex, path)
             };
         }
 
         private static string ValidateMap(MapType type, Texture2D tex, string path)
         {
-            // Basic validation
             TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
             if (importer == null) return null;
 
@@ -239,20 +204,14 @@ namespace GameDevTools.MaterialAutoAssigner
             if (type == MapType.Normal)
             {
                 if (importer.textureType != TextureImporterType.NormalMap)
-                {
                     warnings.Add("Texture Type is not 'Normal Map'");
-                }
             }
             else
             {
-                 // For non-normal maps, usually we expect Default
                  if (importer.textureType == TextureImporterType.NormalMap)
-                 {
                      warnings.Add("Texture Type is 'Normal Map' but should be Default/Sprite");
-                 }
             }
 
-            // sRGB check
             if (type == MapType.Albedo || type == MapType.Emission)
             {
                 if (!importer.sRGBTexture) warnings.Add("Texture should likely be sRGB (Color)");
@@ -280,30 +239,19 @@ namespace GameDevTools.MaterialAutoAssigner
                     {
                         if (material.HasProperty(propName))
                         {
-                            // Check if the property is actually a texture
                             if (IsTextureProperty(material, propName))
                             {
                                 material.SetTexture(propName, map.Texture);
                                 assigned = true;
-                                Debug.Log($"Assigned {map.Texture.name} to {propName} on {material.name}");
-                            }
-                            else
-                            {
-                                Debug.Log($"Skipping {propName} on {material.name} because it is not a texture property (it might be a float/range property).");
                             }
                         }
                     }
                     
                     if (assigned)
                     {
-                        // Enable standard keywords
                         if (map.Type == MapType.Normal) material.EnableKeyword("_NORMALMAP");
                         if (map.Type == MapType.Emission) material.EnableKeyword("_EMISSION");
                         if (map.Type == MapType.Metallic || map.Type == MapType.Roughness) material.EnableKeyword("_METALLICGLOSSMAP");
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Could not find a valid Texture property for {map.Type} on material {material.name}. Checked: {string.Join(", ", PropertyNames[map.Type])}.");
                     }
                 }
             }
@@ -316,11 +264,180 @@ namespace GameDevTools.MaterialAutoAssigner
             for (int i = 0; i < count; i++)
             {
                 if (shader.GetPropertyName(i) == propName)
-                {
                     return shader.GetPropertyType(i) == UnityEngine.Rendering.ShaderPropertyType.Texture;
-                }
             }
             return false;
+        }
+    }
+
+    public class MaterialAutoAssignerWindow : EditorWindow
+    {
+        private Material selectedMaterial;
+        private SearchScope searchScope = SearchScope.SameFolderOnly;
+        private List<MaterialMapScanner.DetectedMap> detectedMaps = new List<MaterialMapScanner.DetectedMap>();
+        private Vector2 scrollPosition;
+        
+        [MenuItem("Tools/GameDevTools/Material Auto Assigner", false, 185)]
+        public static void ShowWindow()
+        {
+            GetWindow<MaterialAutoAssignerWindow>("Material Auto Assigner");
+        }
+
+        private void OnEnable()
+        {
+            if (Selection.activeObject is Material mat)
+            {
+                selectedMaterial = mat;
+                ScanMaps();
+            }
+        }
+
+        private void OnGUI()
+        {
+            DrawTopSection();
+            DrawSearchSettings();
+            DrawDetectedMaps();
+            DrawBottomSection();
+        }
+
+        private void DrawTopSection()
+        {
+            EditorGUILayout.LabelField("Material Selection", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
+            selectedMaterial = (Material)EditorGUILayout.ObjectField("Target Material", selectedMaterial, typeof(Material), false);
+            if (EditorGUI.EndChangeCheck())
+            {
+                ScanMaps();
+            }
+
+            if (GUILayout.Button("Use Selected Material"))
+            {
+                if (Selection.activeObject is Material mat)
+                {
+                    selectedMaterial = mat;
+                    ScanMaps();
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("Info", "Please select a material in the Project View first.", "OK");
+                }
+            }
+
+            EditorGUILayout.Space();
+            if (selectedMaterial != null)
+            {
+                EditorGUILayout.HelpBox($"Selected: {selectedMaterial.name}", MessageType.Info);
+            }
+        }
+
+        private void DrawSearchSettings()
+        {
+            EditorGUILayout.LabelField("Search Settings", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
+            searchScope = (SearchScope)EditorGUILayout.EnumPopup("Search Scope", searchScope);
+            if (EditorGUI.EndChangeCheck() && selectedMaterial != null)
+            {
+                ScanMaps();
+            }
+            EditorGUILayout.Space();
+        }
+
+        private void DrawDetectedMaps()
+        {
+            EditorGUILayout.LabelField("Detected Maps", EditorStyles.boldLabel);
+            if (selectedMaterial == null) return;
+
+            if (detectedMaps == null || detectedMaps.Count == 0)
+            {
+                 EditorGUILayout.HelpBox("No maps detected.", MessageType.Warning);
+                 return;
+            }
+
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.MinHeight(200));
+            foreach (var map in detectedMaps)
+            {
+                EditorGUILayout.BeginHorizontal("box");
+                map.IsAssigned = EditorGUILayout.Toggle(map.IsAssigned, GUILayout.Width(20));
+                EditorGUILayout.LabelField(map.Type.ToString(), GUILayout.Width(80));
+                map.Texture = (Texture2D)EditorGUILayout.ObjectField(map.Texture, typeof(Texture2D), false);
+                if (!string.IsNullOrEmpty(map.Warning))
+                {
+                    var icon = EditorGUIUtility.IconContent("console.warnicon.sml");
+                    icon.tooltip = map.Warning;
+                    GUILayout.Label(icon, GUILayout.Width(20), GUILayout.Height(20));
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUILayout.EndScrollView();
+        }
+
+        private void DrawBottomSection()
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Scan for Maps", GUILayout.Height(30))) ScanMaps();
+            if (GUILayout.Button("Auto-Assign All", GUILayout.Height(30))) AssignMaps();
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void ScanMaps()
+        {
+            if (selectedMaterial == null) return;
+            detectedMaps = MaterialMapScanner.Scan(selectedMaterial, searchScope);
+        }
+
+        private void AssignMaps()
+        {
+            if (selectedMaterial == null) return;
+            MaterialMapScanner.AssignMaps(selectedMaterial, detectedMaps);
+            AssetDatabase.SaveAssets();
+            EditorUtility.DisplayDialog("Success", "Maps assigned successfully!", "OK");
+        }
+    }
+
+    public static class MaterialAutoAssignerAssetMenus
+    {
+        [MenuItem("Assets/Auto-Assign Maps", false, 1100)]
+        private static void AutoAssignMaps()
+        {
+            Material mat = Selection.activeObject as Material;
+            if (mat != null)
+            {
+                var maps = MaterialMapScanner.Scan(mat, SearchScope.SameFolderOnly);
+                MaterialMapScanner.AssignMaps(mat, maps);
+                Debug.Log($"Auto-Assigned maps for {mat.name}");
+            }
+        }
+
+        [MenuItem("Assets/Auto-Assign Maps", true)]
+        private static bool AutoAssignMapsValidation() => Selection.activeObject is Material;
+
+        [MenuItem("Assets/Batch Auto-Assign Materials", false, 1102)]
+        private static void BatchAutoAssignMaterials()
+        {
+            string folderPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            if (Directory.Exists(folderPath))
+            {
+                string[] guids = AssetDatabase.FindAssets("t:Material", new[] { folderPath });
+                foreach (var guid in guids)
+                {
+                    string path = AssetDatabase.GUIDToAssetPath(guid);
+                    Material mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+                    if (mat != null)
+                    {
+                        var maps = MaterialMapScanner.Scan(mat, SearchScope.SameFolderOnly);
+                        MaterialMapScanner.AssignMaps(mat, maps);
+                    }
+                }
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        [MenuItem("Assets/Batch Auto-Assign Materials", true)]
+        private static bool BatchAutoAssignValidation()
+        {
+             string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+             return !string.IsNullOrEmpty(path) && Directory.Exists(path);
         }
     }
 }

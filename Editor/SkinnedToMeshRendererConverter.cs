@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections.Generic;
 public class SkinnedToMeshRendererConverter : Editor
 {
-    [MenuItem("Tools/GameDevTools/Convert Skinned Mesh to Static Mesh", false, 100)]
+    [MenuItem("Tools/GameDevTools/Convert Skinned Mesh to Static Mesh", false, 130)]
     public static void ConvertSelected()
     {
         GameObject[] selectedObjects = Selection.gameObjects;
@@ -63,7 +63,7 @@ public class SkinnedToMeshRendererConverter : Editor
         // 3. Remove the SkinnedMeshRenderer
         DestroyImmediate(smr);
     }
-    [MenuItem("Tools/GameDevTools/Convert Skinned Mesh to Static Mesh", true, 100)]
+    [MenuItem("Tools/GameDevTools/Convert Skinned Mesh to Static Mesh", true, 130)]
     public static bool ValidateConvertSelected()
     {
         if (Selection.gameObjects == null || Selection.gameObjects.Length == 0) return false;

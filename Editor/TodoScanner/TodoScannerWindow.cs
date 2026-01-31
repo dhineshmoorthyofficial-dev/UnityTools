@@ -7,7 +7,7 @@ namespace GameDevTools.Editor
     {
         [SerializeField] private TodoScannerUI ui = new TodoScannerUI();
 
-        [MenuItem("Tools/GameDevTools/TODO Scanner", false, 100)]
+        [MenuItem("Tools/GameDevTools/TODO Scanner", false, 280)]
         public static void ShowWindow()
         {
             var window = GetWindow<TodoScannerWindow>("TODO Scanner");

@@ -7,7 +7,7 @@ namespace UnityProductivityTools.Bootstrapper.Editor
     {
         [SerializeField] private BootstrapperUI ui = new BootstrapperUI();
 
-        [MenuItem("Tools/GameDevTools/Project Bootstrapper", false, 100)]
+        [MenuItem("Tools/GameDevTools/Project Bootstrapper", false, 220)]
         public static void ShowWindow()
         {
             GetWindow<BootstrapperWindow>("Bootstrapper");

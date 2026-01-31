@@ -37,6 +37,7 @@ namespace UnityProductivityTools.Dashboard
                 ("Advanced Inspector", "Enhanced inspector with favorites and script editing."),
                 ("Asset Sync", "Synchronize assets to external locations."),
                 ("Hidden Dep Detector", "Find usage of shaders, textures, and more."),
+                ("Material Auto Assigner", "Automatically detect and assign material maps."),
                 ("Integrated Terminal", "Multi-tab terminal within Unity.")
             });
 
