@@ -46,31 +46,37 @@ namespace UnityProductivityTools
                 );
 
                 DrawToolItem(
-                    "1.2 Project Bootstrapper",
+                    "1.2 Macro Actions",
+                    "Record or define repetitive editor workflows and bind them to a single shortcut button or hotkey without writing code.",
+                    "Tools/GameDevTools/Macro Actions"
+                );
+
+                DrawToolItem(
+                    "1.3 Project Bootstrapper",
                     "Initialize new projects with standard folders, base scripts (Singleton, ObjectPool), and scenes in seconds.",
                     "Tools/GameDevTools/Project Bootstrapper"
                 );
 
                 DrawToolItem(
-                    "1.3 Task Manager",
+                    "1.4 Task Manager",
                     "Project-wide task tracking tool. Assign priorities, owners, and statuses to keep track of your work.",
                     "Tools/GameDevTools/Task Manager"
                 );
 
                 DrawToolItem(
-                    "1.4 Task Manager (Synced)",
+                    "1.5 Task Manager (Synced)",
                     "Real-time synchronized task manager using WebSockets. Broadcasts task updates.",
                     "Tools/GameDevTools/Task Manager (Synced)"
                 );
 
                 DrawToolItem(
-                    "1.5 TODO Scanner",
+                    "1.6 TODO Scanner",
                     "Automatically scans your C# scripts for //TODO and //FIXME comments. Click to jump to the exact line.",
                     "Tools/GameDevTools/TODO Scanner"
                 );
 
                 DrawToolItem(
-                    "1.6 Toolbar Extender",
+                    "1.7 Toolbar Extender",
                     "Adds navigation buttons, project settings, preferences, and quick platform switching to the main Unity toolbar.",
                     null // Always visible
                 );

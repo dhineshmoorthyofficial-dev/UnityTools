@@ -27,6 +27,7 @@ namespace Dhinesh.EditorTools.CustomTaskbar
             // IMPORTANT: Static buttons first to keep them anchored left
             ToolbarExtender.RightToolbarGUI.Add(DrawReloadButton);
             ToolbarExtender.RightToolbarGUI.Add(DrawFindSceneButton);
+            ToolbarExtender.RightToolbarGUI.Add(DrawMacroDropdown);
             ToolbarExtender.LeftToolbarGUI.Add(() => GUILayout.Space(10));
             ToolbarExtender.RightToolbarGUI.Add(DrawSelectionBackButton);
             ToolbarExtender.RightToolbarGUI.Add(DrawSelectionForwardButton);
@@ -118,6 +119,30 @@ namespace Dhinesh.EditorTools.CustomTaskbar
             {
                 var path = UnityEngine.SceneManagement.SceneManager.GetActiveScene().path;
                 if (!string.IsNullOrEmpty(path)) EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<SceneAsset>(path));
+            }
+        }
+
+        static void DrawMacroDropdown()
+        {
+            if (EditorGUILayout.DropdownButton(new GUIContent("Macros", "Execute saved macros"), FocusType.Passive, EditorStyles.toolbarDropDown))
+            {
+                var menu = new GenericMenu();
+                var macros = UnityProductivityTools.MacroActions.MacroManager.GetAllMacros();
+                if (macros.Count == 0)
+                {
+                    menu.AddDisabledItem(new GUIContent("No Macros Found"));
+                }
+                else
+                {
+                    foreach (var macro in macros)
+                    {
+                        var m = macro;
+                        menu.AddItem(new GUIContent(m.name), false, () => m.Execute(Selection.objects));
+                    }
+                }
+                menu.AddSeparator("");
+                menu.AddItem(new GUIContent("Open Macro Builder..."), false, () => UnityProductivityTools.MacroActions.MacroActionsWindow.ShowWindow());
+                menu.ShowAsContext();
             }
         }
 

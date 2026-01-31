@@ -113,11 +113,12 @@ Editor/
 5. Hidden Dependency Detector
 6. Hierarchy Icons
 7. Integrated Terminal
-8. Note Dashboard
-9. Object Comparison
-10. Object Grouper
-11. Project Bootstrapper
-12. Quick Prefab Creator
-13. Snapshot Manager
-14. Task Manager
-15. TODO Scanner
+8. Macro Actions
+9. Note Dashboard
+10. Object Comparison
+11. Object Grouper
+12. Project Bootstrapper
+13. Quick Prefab Creator
+14. Snapshot Manager
+15. Task Manager
+16. TODO Scanner

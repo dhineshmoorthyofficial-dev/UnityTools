@@ -13,24 +13,31 @@ A comprehensive collection of Unity Editor tools designed to enhance productivit
     - **Search & Filter**: Quickly find features with the built-in search bar.
     - **Access**: `Tools > GameDevTools > Feature Aggregator`
 
-- **1.2 Project Bootstrapper**:
+- **1.2 Macro Actions**:
+    - **Macro Builder**: Manually build sequences of actions like adding components, renaming, and setting properties.
+    - **One-Click Execution**: Bind macros to buttons or run them on selected objects.
+    - **Context Awareness**: Define macros for specific target types (GameObjects, Assets).
+    - **Undo Support**: All steps in a macro are handled as a single undo operation.
+    - **Access**: `Tools > GameDevTools > Macro Actions`
+
+- **1.3 Project Bootstrapper**:
     - **Quick Setup**: Initialize empty projects with a standard folder structure (_Project, Scripts, Art, etc.).
     - **Base Scripts**: Generate essential helper scripts like Singleton<T>, ObjectPool<T>, GameConstants, and more.
     - **Scene Setup**: Auto-create Boot, Menu, and Gameplay scenes and add them to Build Settings.
     - **Standard Settings**: One-click application of recommended project settings (Linear color space, etc.).
 
-- **1.3 Task Manager**:
+- **1.4 Task Manager**:
     - **Global To-Do List**: Manage tasks project-wide without treating them as MonoBehaviours.
     - **Features**: Priority levels (color-coded), status tracking, and owner assignment.
     - **Deep Linking**: Link tasks to GameObjects or Project Assets for quick context.
     - **Persistence**: Tasks are saved to a specific asset file and persist across sessions.
 
-- **1.4 Task Manager (Synced)**:
+- **1.5 Task Manager (Synced)**:
     - **Real-Time Sync**: Synchronize tasks with connected clients via WebSockets.
     - **Team Sync**: Share task lists with team members.
     - **Access**: `Tools > GameDevTools > Task Manager (Synced)`
 
-- **1.5 TODO/FIXME Scanner**:
+- **1.6 TODO/FIXME Scanner**:
     - **Code Scanning**: Automatically finds `//TODO` and `//FIXME` comments in all your project scripts.
     - **Navigation**: Click on any item to open the file directly in your IDE at the correct line.
 
@@ -63,6 +70,12 @@ A comprehensive collection of Unity Editor tools designed to enhance productivit
     - **Capture**: specific states of GameObjects.
     - **Restore**: Revert objects to saved states.
     - **Undo Support**: Full undo/redo for all state restorations.
+
+- **2.7 Sort Children Alphabetically**: 
+    - **Natural Numeric Sorting**: Correctly sorts objects with numbers (e.g., "Group 3" before "Group 10").
+    - **One-Click Access**: Available via context menu and top menu.
+    - **Shortcut**: `Alt+Shift+S` for instant sorting.
+    - **Access**: `Tools > GameDevTools > Sort Children Alphabetically` or `Right-click > Sort Children Alphabetically`.
 
 ### � Asset Utilities
 - **3.1 Advanced Inspector**:
