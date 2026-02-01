@@ -1,0 +1,50 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# IDE
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.vscode/*
+!.vscode/settings.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Remotion Video Project (Node.js) - hidden folder so Unity ignores it
+video~/node_modules/
+video~/out/
+video~/.cache/
+video~/dist/
+video~/*.log
+video~/npm-debug.log*
+video~/yarn-debug.log*
+video~/yarn-error.log*
+video~/*.meta
+
+# Old video folder (delete manually if still exists)
+video/
+video.meta
+
+# General Node.js
+node_modules/
+*.tsbuildinfo
