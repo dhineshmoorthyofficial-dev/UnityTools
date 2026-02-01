@@ -3,31 +3,10 @@ import { IntroSequence } from "./components/IntroSequence";
 import { CategorySection } from "./components/CategorySection";
 import { OutroSequence } from "./components/OutroSequence";
 import { categories } from "./data/tools";
-import { colors } from "./styles/theme";
+import { colors, timing } from "./styles/theme";
 
 // Timing configuration (in frames at 30fps)
-const TIMING = {
-  intro: {
-    start: 0,
-    duration: 150, // 5 seconds
-  },
-  workflow: {
-    start: 150,
-    duration: 450, // 15 seconds
-  },
-  scene: {
-    start: 600,
-    duration: 450, // 15 seconds
-  },
-  assets: {
-    start: 1050,
-    duration: 450, // 15 seconds
-  },
-  outro: {
-    start: 1500,
-    duration: 300, // 10 seconds
-  },
-};
+const TIMING = timing;
 
 export const Video: React.FC = () => {
   return (
@@ -63,6 +42,7 @@ export const Video: React.FC = () => {
           duration={TIMING.assets.duration}
         />
       </Sequence>
+
 
       {/* Outro Sequence */}
       <Sequence from={TIMING.outro.start} durationInFrames={TIMING.outro.duration}>

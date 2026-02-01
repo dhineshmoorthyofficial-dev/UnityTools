@@ -7,7 +7,7 @@ export const colors = {
   text: "#FFFFFF",
   textMuted: "#B4B4B4",
   border: "#3C3C3C",
-  
+
   // Category colors
   workflow: "#3F8FD2", // Blue
   scene: "#7BC74D", // Green
@@ -33,7 +33,7 @@ export const fontWeights = {
 // Animation timing (in frames at 30fps)
 export const timing = {
   fps: 30,
-  
+
   // Section durations
   intro: {
     start: 0,
@@ -55,7 +55,7 @@ export const timing = {
     start: 1500,
     duration: 300, // 10 seconds
   },
-  
+
   // Animation durations
   fadeIn: 15, // 0.5 seconds
   fadeOut: 15,
