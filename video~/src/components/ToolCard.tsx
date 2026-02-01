@@ -70,7 +70,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     <div
       style={{
         opacity,
-        transform: `scale(${isActive ? 1.05 : scale}) translateX(${(1 - slideX) * 50}px)`,
+        transform: `scale(${interpolate(activeScale, [0, 1], [scale, 1.05])}) translateX(${(1 - slideX) * 50}px)`,
         display: "flex",
         alignItems: "center",
         gap: 16,
@@ -81,7 +81,6 @@ export const ToolCard: React.FC<ToolCardProps> = ({
         position: "relative",
         overflow: "hidden",
         width: "100%",
-        transition: "all 0.3s ease",
         boxShadow: isActive ? `0 10px 30px ${categoryColor}15` : "none",
       }}
     >

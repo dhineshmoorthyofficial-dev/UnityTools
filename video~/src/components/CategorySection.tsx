@@ -112,6 +112,7 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
             flexDirection: "column",
             gap: 12,
             overflow: "hidden",
+            height: 700, // Fixed height to prevent layout shifts
           }}
         >
           {category.tools.map((tool, index) => (
@@ -155,7 +156,7 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
+                objectFit: "contain",
               }}
             />
           ) : (

@@ -203,7 +203,7 @@ export const OutroSequence: React.FC<OutroSequenceProps> = ({ startFrame }) => {
               fontFamily: "JetBrains Mono, monospace",
             }}
           >
-            github.com/your-repo/unity-tools
+            github.com/DhineshMoorthy-gamedev/UnityTools
           </span>
         </div>
       </div>
